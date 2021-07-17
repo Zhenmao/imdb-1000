@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beeswarm Layout</title>
+  </head>
+  <body>
+    <!-- D3 JS -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- JS -->
+    <script>
+      d3.json("data/imdb-1000.json").then((data) => {
+        const margin = {
+          top: 32,
+          right: 48,
+          bottom: 96,
+          left: 48,
+        };
+        const width = 800;
+        const height = 2400;
+        const maxRadius = 32;
+        const tickRadius = 24;
+
+        const y = d3
+          .scaleLinear()
+          .domain(d3.extent(data, (d) => d.year))
+          .range([margin.top, height - margin.bottom]);
+
+        const r = d3
+          .scaleSqrt()
+          .domain([0, d3.max(data, (d) => d.votes)])
+          .range([0, maxRadius]);
+
+        const nodes = [
+          ...y.ticks().map((year) => ({
+            year,
+            fx: width / 2,
+            fy: y(year),
+            votes: r.invert(tickRadius),
+          })),
+          ...data,
+        ];
+
+        const simulation = d3
+          .forceSimulation(nodes)
+          .force("x", d3.forceX(width / 2))
+          .force("y", d3.forceY((d) => y(d.year)).strength(1))
+          .force(
+            "collide",
+            d3
+              .forceCollide()
+              .radius((d) => r(d.votes) + 2)
+              .iterations(3)
+          )
+          .stop();
+
+        simulation.tick(360);
+
+        data.forEach((d) => {
+          delete d.vx;
+          delete d.vy;
+        });
+
+        console.log(JSON.stringify(data));
+      });
+    </script>
+  </body>
+</html>

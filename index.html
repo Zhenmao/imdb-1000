@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMDB 1000</title>
+    <!-- Google Fonts CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Autocomplete CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.02.min.css"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <main class="wrapper">
+      <div id="chart-container"></div>
+      <div class="intro">
+        <h1><span class="primary">IMDB</span> TOP 1000</h1>
+        <div class="secondary">
+          IMDB is the world's largest online movie database. Users can rate each
+          film on a scale from 1 to 10. The IMDB Top 1000 is a list of the top
+          rated 1000 films based on the user ratings. Here, each
+          <svg width="12" height="12">
+            <circle cx="6" cy="6" r="6" fill="#f4f4f4"></circle>
+          </svg>
+          represents one of the top 1000 movies.
+        </div>
+        <div>
+          <div>Movie rank</div>
+          <div id="color-legend"></div>
+        </div>
+        <div>
+          <div>Total votes</div>
+          <div id="size-legend"></div>
+        </div>
+      </div>
+      <div class="search-outer">
+        <div class="search-inner">
+          <label for="movie-person-search">Search a movie or a person</label>
+          <input id="movie-person-search" type="text" autocomplete="off" />
+        </div>
+      </div>
+    </main>
+    <footer class="wrapper">
+      <p>
+        Data source:
+        <a
+          href="https://www.imdb.com/search/title/?groups=top_1000&sort=user_rating,desc"
+          >IMDB Top 1000</a
+        >. The data was accessed on July 14, 2021.
+      </p>
+      <p>
+        Visualization Inspiration:
+        <a href="https://www.visualcinnamon.com/portfolio/top2000/"
+          >The Top 2000 ❤ the 70s & 80s</a
+        >
+      </p>
+    </footer>
+    <!-- D3 JS -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Autocomplete JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+    <!-- JS -->
+    <script src="js/process-data.js"></script>
+    <script src="js/color-legend.js"></script>
+    <script src="js/size-legend.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/beeswarm.js"></script>
+    <script src="js/autocomplete.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
