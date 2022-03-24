@@ -7,6 +7,9 @@ d3.json("data/imdb-1000-positioned.json").then((movies) => {
     onSelect: ({ id }) => {
       dispatch.call("highlight", null, { id, category: "person" });
     },
+    onReset: () => {
+      dispatch.call("highlight", null, { id: null, category: null });
+    },
   });
 
   const { movieMap, personMap, options } = processData(movies);

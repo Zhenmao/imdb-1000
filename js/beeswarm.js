@@ -1,8 +1,9 @@
 class Beeswarm {
-  constructor({ el, data, onSelect }) {
+  constructor({ el, data, onSelect, onReset }) {
     this.el = el;
     this.data = data;
     this.onSelect = onSelect;
+    this.onReset = onReset;
     this.highlight = this.highlight.bind(this);
     this.init();
   }
@@ -50,7 +51,10 @@ class Beeswarm {
     this.svg = this.container
       .append("svg")
       .attr("width", this.width)
-      .attr("height", this.height);
+      .attr("height", this.height)
+      .on("click", () => {
+        this.onReset();
+      });
     this.gYAxis = this.svg.append("g").attr("class", "axis axis--y");
     this.gHighlight = this.svg.append("g").attr("class", "highlighted-circles");
     this.gCircles = this.svg.append("g").attr("class", "circles");
@@ -85,7 +89,7 @@ class Beeswarm {
   }
 
   renderCircles() {
-    this.gCircles
+    this.circle = this.gCircles
       .selectAll(".circle")
       .data(this.data, (d) => d.id)
       .join((enter) =>
@@ -108,6 +112,11 @@ class Beeswarm {
   }
 
   renderHighlight() {
+    this.circle.classed(
+      "is-muted",
+      (d) => this.highlighted.length && !this.highlighted.includes(d)
+    );
+
     this.gHighlight
       .selectAll(".highlighted-circle")
       .data(this.highlighted, (d) => d.id)

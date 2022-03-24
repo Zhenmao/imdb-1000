@@ -60,6 +60,11 @@ a {
   pointer-events: all;
 }
 
+.autoComplete_wrapper,
+.autoComplete_wrapper > input {
+  max-width: 100%;
+}
+
 svg {
   overflow: visible;
 }
@@ -67,6 +72,10 @@ svg {
 .beeswam .axis text {
   font-size: 14px;
   fill: currentColor;
+}
+
+.beeswam .is-muted {
+  opacity: 0.2;
 }
 
 .beeswam .highlighted-circle {

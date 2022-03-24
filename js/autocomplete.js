@@ -78,7 +78,7 @@ class AutoComplete {
   }
 
   highlight({ movies, people }) {
-    let text;
+    let text = "";
     if (people.length) {
       text = people[0].name;
     } else if (movies.length) {
