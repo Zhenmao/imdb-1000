@@ -56,7 +56,6 @@ class Beeswarm {
         this.onReset();
       });
     this.gYAxis = this.svg.append("g").attr("class", "axis axis--y");
-    this.gHighlight = this.svg.append("g").attr("class", "highlighted-circles");
     this.gCircles = this.svg.append("g").attr("class", "circles");
 
     this.tooltip = new Tooltip({
@@ -84,7 +83,7 @@ class Beeswarm {
           .attr("text-anchor", "middle")
           .attr("dy", "0.32em")
           .attr("y", (d) => this.y(d))
-          .text((d) => d)
+          .text((d) => d),
       );
   }
 
@@ -107,29 +106,22 @@ class Beeswarm {
               this.onSelect({ id: event.currentTarget.dataset.id });
             });
           })
-          .on("mouseleave", this.tooltip.hide)
+          .on("mouseleave", this.tooltip.hide),
       );
   }
 
   renderHighlight() {
-    this.circle.classed(
-      "is-muted",
-      (d) => this.highlighted.length && !this.highlighted.includes(d)
-    );
-
-    this.gHighlight
-      .selectAll(".highlighted-circle")
-      .data(this.highlighted, (d) => d.id)
-      .join((enter) =>
-        enter
-          .append("circle")
-          .attr("class", "highlighted-circle")
-          .attr("r", (d) => this.r(d.votes))
-          .attr("cx", (d) => d.x)
-          .attr("cy", (d) => d.y)
-          .attr("fill", "none")
-          .attr("stroke-width", 8)
-      );
+    this.circle.attr("class", (d) => {
+      const classList = ["circle"];
+      if (this.highlighted.length) {
+        if (this.highlighted.includes(d)) {
+          classList.push("is-highlighted");
+        } else {
+          classList.push("is-muted");
+        }
+      }
+      return classList.join(" ");
+    });
   }
 
   tooltipContent(d) {
@@ -178,8 +170,8 @@ class Beeswarm {
     // Directors
     content += `
       <div>${d.directors.length > 1 ? "Directors" : "Director"}: ${d.directors
-      .map((p) => `<span class="t-person" data-id="${p.id}">${p.name}</span>`)
-      .join(", ")}</div>
+        .map((p) => `<span class="t-person" data-id="${p.id}">${p.name}</span>`)
+        .join(", ")}</div>
     `;
 
     // Stars

@@ -29,8 +29,10 @@ a {
   width: 800px;
   margin: 32px auto;
   background-color: #1a1a1a;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  box-shadow:
+    0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%),
+    0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
 .intro {
@@ -75,13 +77,21 @@ svg {
   fill: currentColor;
 }
 
-.beeswam .is-muted {
-  opacity: 0.2;
+.beeswam .circle {
+  paint-order: stroke;
+  stroke-width: 6px;
+  color: transparent;
+  stroke: currentColor;
 }
 
-.beeswam .highlighted-circle {
+.beeswam .circle.is-muted {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.beeswam .circle:hover,
+.beeswam .circle.is-highlighted {
   color: #5799ef;
-  stroke: currentColor;
 }
 
 .tooltip {
@@ -92,8 +102,10 @@ svg {
   padding: 16px;
   border-radius: 4px;
   background-color: #3c3c3c;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  box-shadow:
+    0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%),
+    0px 1px 5px 0px rgb(0 0 0 / 12%);
   opacity: 0;
   visibility: hidden;
   transition-property: opacity, visibility;
